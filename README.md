@@ -13,7 +13,8 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 - [X] Add API Testing
 - [X] Add Dependency Management
 - [X] Add Migrations
-- [ ] Load env vars from .env
+- [X] Load env vars from .env
+- [ ] Add start banner
 - [ ] Add GORM
 - [ ] Add Mail
 
