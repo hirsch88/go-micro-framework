@@ -73,6 +73,22 @@ func App() *gin.Engine {
 
 	/*
 	|--------------------------------------------------------------------------
+	| Print Application Banner to the Console
+	|--------------------------------------------------------------------------
+	|
+	| This script returns the application instance. The instance is given to
+	| the calling script so we can separate the building of the instances
+	| from the actual running of the application and sending responses.
+	|
+	*/
+
+	lib.PrintBanner(
+		config.App().ShowBanner,
+		config.App().Port,
+	)
+
+	/*
+	|--------------------------------------------------------------------------
 	| Return The Application
 	|--------------------------------------------------------------------------
 	|

@@ -43,11 +43,24 @@ func App() *AppConfig {
 		*/
 
 		Prefix: lib.Env("APP_PREFIX", "/api"),
+
+		/*
+		|--------------------------------------------------------------------------
+		| Application Banner
+		|--------------------------------------------------------------------------
+		|
+		| If you wish to see a nice log statement when the application has been
+		| bootstrap then activate this config.
+		|
+		*/
+
+		ShowBanner: lib.EnvBool("APP_SHOW_BANNER", true),
 	}
 }
 
 type AppConfig struct {
-	Name    string
-	Port    string
-	Prefix    string
+	Name       string
+	Port       string
+	Prefix     string
+	ShowBanner bool
 }

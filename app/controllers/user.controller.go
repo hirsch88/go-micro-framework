@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/jinzhu/gorm"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,6 +14,7 @@ type UserController struct {
 }
 
 func (c *UserController) Create(ctx *gin.Context) {
+	log.Info("STARTING UserController.create()")
 	db := c.db()
 	defer db.Close()
 
@@ -25,6 +27,7 @@ func (c *UserController) Create(ctx *gin.Context) {
 
 	db.Create(&user)
 	ctx.JSON(http.StatusCreated, user)
+	log.WithField("username", user.Username).Info("FINISHED UserController.create()")
 }
 
 func NewUserController(db func() *gorm.DB) *UserController {
