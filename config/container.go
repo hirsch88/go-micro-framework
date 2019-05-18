@@ -1,6 +1,8 @@
 package config
 
-import "github.com/hirsch88/go-micro-framework/app/controllers"
+import (
+	"github.com/hirsch88/go-micro-framework/app/controllers"
+)
 
 /*
 |--------------------------------------------------------------------------

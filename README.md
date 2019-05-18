@@ -69,7 +69,7 @@ To manage our database schema we used the library [goose](https://github.com/pre
 ### Run migrations
 
 ```shell
-goose -dir database/migrations mysql "root:root@/hirsch88?parseTime=true" up 
+goose -dir database/migrations mysql "root:root@/go-micro-framework?parseTime=true" up 
 ```
 
 ### Create a migration
