@@ -54,15 +54,22 @@ func App() *gin.Engine {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Register Routes
+	| Register Routes & Build up the IoC Container
 	|--------------------------------------------------------------------------
 	|
 	| Here we add our api endpoints to the application. These routes are prefixed
-	| with the default value 'api'.
+	| with the default value 'api'. Moreover we pass a function to the container build
+	| up, which can create a new database connection.
 	|
 	*/
 
-	routes.API(app.Group("/api"), config.NewContainer())
+	routes.API(app.Group(config.App().Prefix), config.NewContainer(lib.DB(
+		config.Database().Dialect,
+		config.Database().Connection,
+		config.Database().LogMode,
+		config.Database().IdleConnections,
+		config.Database().OpenConnections,
+	)))
 
 	/*
 	|--------------------------------------------------------------------------

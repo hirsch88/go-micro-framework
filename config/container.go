@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/hirsch88/go-micro-framework/app/controllers"
+	"github.com/jinzhu/gorm"
 )
 
 /*
@@ -19,7 +20,7 @@ type Container struct {
 	UserController controllers.UserController
 }
 
-func NewContainer() Container {
+func NewContainer(db func() *gorm.DB) Container {
 
 	/*
 	   |--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ func NewContainer() Container {
 	   |--------------------------------------------------------------------------
 	*/
 	APIController := controllers.NewAPIController()
-	UserController := controllers.NewUserController()
+	UserController := controllers.NewUserController(db)
 
 	/*
 	   |--------------------------------------------------------------------------

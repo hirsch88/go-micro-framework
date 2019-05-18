@@ -1,10 +1,19 @@
 package lib
 
 import (
+	"github.com/joho/godotenv"
+	"github.com/sirupsen/logrus"
 	"os"
 	"strconv"
 	"strings"
 )
+
+func LoadEnv(){
+	err := godotenv.Load()
+	if err != nil {
+		logrus.Fatal("Error loading .env file")
+	}
+}
 
 func Env(key string, defaultValue string) string{
 	var value = os.Getenv(key)

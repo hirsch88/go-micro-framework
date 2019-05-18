@@ -30,10 +30,24 @@ func App() *AppConfig {
 		*/
 
 		Port: lib.Env("APP_PORT", "go-micro-framework"),
+
+		/*
+		|--------------------------------------------------------------------------
+		| Application Name
+		|--------------------------------------------------------------------------
+		|
+		| This value is the name of your application. This value is used when the
+		| framework needs to place the application's name in a notification or
+		| any other location as required by the application or its packages.
+		|
+		*/
+
+		Prefix: lib.Env("APP_PREFIX", "/api"),
 	}
 }
 
 type AppConfig struct {
 	Name    string
 	Port    string
+	Prefix    string
 }

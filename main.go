@@ -10,15 +10,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/hirsch88/go-micro-framework/bootstrap"
 	"github.com/hirsch88/go-micro-framework/config"
-	"github.com/joho/godotenv"
-	"github.com/sirupsen/logrus"
+	"github.com/hirsch88/go-micro-framework/lib"
 )
 
 func main() {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Load the environment variables
+	| LoadEnv the environment variables
 	|--------------------------------------------------------------------------
 	|
 	| First we have to load the environment variables out form the .env file.
@@ -26,10 +25,7 @@ func main() {
 	|
 	*/
 
-	err := godotenv.Load()
-	if err != nil {
-		logrus.Fatal("Error loading .env file")
-	}
+	lib.LoadEnv()
 
 	/*
 	|--------------------------------------------------------------------------

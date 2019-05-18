@@ -1,17 +1,19 @@
 package controllers
 
 import (
-	"github.com/hirsch88/go-micro-framework/lib"
+	"github.com/jinzhu/gorm"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/hirsch88/go-micro-framework/app/models"
 )
 
-type UserController struct {}
+type UserController struct {
+	db func() *gorm.DB
+}
 
 func (c *UserController) Create(ctx *gin.Context) {
-	db := lib.DB()
+	db := c.db()
 	defer db.Close()
 
 	user := models.User{}
@@ -25,6 +27,8 @@ func (c *UserController) Create(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, user)
 }
 
-func NewUserController() *UserController {
-	return &UserController{}
+func NewUserController(db func() *gorm.DB) *UserController {
+	return &UserController{
+		db,
+	}
 }
