@@ -15,7 +15,7 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 - [X] Add Migrations
 - [X] Load env vars from .env
 - [X] Add database orm
-- [ ] Add start banner
+- [X] Add start banner
 - [ ] Add app structure with service, dtos and repos
 - [ ] Add Mail
 

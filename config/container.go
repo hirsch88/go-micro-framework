@@ -1,7 +1,9 @@
 package config
 
 import (
-	"github.com/hirsch88/go-micro-framework/app/controllers"
+	"github.com/hirsch88/go-micro-framework/app/http/controllers"
+	"github.com/hirsch88/go-micro-framework/app/repositories"
+	"github.com/hirsch88/go-micro-framework/app/services"
 	"github.com/jinzhu/gorm"
 )
 
@@ -23,32 +25,34 @@ type Container struct {
 func NewContainer(db func() *gorm.DB) Container {
 
 	/*
-	   |--------------------------------------------------------------------------
-	   | Register Repositories
-	   |--------------------------------------------------------------------------
+	|--------------------------------------------------------------------------
+	| Register Repositories
+	|--------------------------------------------------------------------------
 	*/
+	userRepository := repositories.NewUserRepository(db)
 
 	/*
-	   |--------------------------------------------------------------------------
-	   | Register Services
-	   |--------------------------------------------------------------------------
+	|--------------------------------------------------------------------------
+	| Register Services
+	|--------------------------------------------------------------------------
 	*/
+	userService := services.NewUserService(userRepository)
 
 	/*
-	   |--------------------------------------------------------------------------
-	   | Register Controllers
-	   |--------------------------------------------------------------------------
+	|--------------------------------------------------------------------------
+	| Register Controllers
+	|--------------------------------------------------------------------------
 	*/
-	APIController := controllers.NewAPIController()
-	UserController := controllers.NewUserController(db)
+	apiController := controllers.NewAPIController()
+	userController := controllers.NewUserController(userService)
 
 	/*
-	   |--------------------------------------------------------------------------
-	   | Return the Dependency Injection Container
-	   |--------------------------------------------------------------------------
+	|--------------------------------------------------------------------------
+	| Return the Dependency Injection Container
+	|--------------------------------------------------------------------------
 	*/
 	return Container{
-		*APIController,
-		*UserController,
+		*apiController,
+		*userController,
 	}
 }

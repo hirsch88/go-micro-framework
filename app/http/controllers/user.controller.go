@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"github.com/jinzhu/gorm"
+	"github.com/hirsch88/go-micro-framework/app/services"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 
@@ -10,13 +10,11 @@ import (
 )
 
 type UserController struct {
-	db func() *gorm.DB
+	userService *services.UserService
 }
 
 func (c *UserController) Create(ctx *gin.Context) {
 	log.Info("STARTING UserController.create()")
-	db := c.db()
-	defer db.Close()
 
 	user := models.User{}
 
@@ -25,13 +23,14 @@ func (c *UserController) Create(ctx *gin.Context) {
 		return
 	}
 
-	db.Create(&user)
+	user = c.userService.Create(user)
+
 	ctx.JSON(http.StatusCreated, user)
 	log.WithField("username", user.Username).Info("FINISHED UserController.create()")
 }
 
-func NewUserController(db func() *gorm.DB) *UserController {
+func NewUserController(userService *services.UserService) *UserController {
 	return &UserController{
-		db,
+		userService,
 	}
 }
