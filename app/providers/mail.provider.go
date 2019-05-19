@@ -2,6 +2,7 @@ package providers
 
 import (
 	"bytes"
+	"github.com/hirsch88/go-micro-framework/app/mail"
 	"github.com/hirsch88/go-micro-framework/lib"
 	"html/template"
 	"log"
@@ -14,25 +15,26 @@ type mailProvider struct {
 	password string
 }
 
-func (p *mailProvider) Send(mailTemplate string, to string, subject string, data interface{}) {
-	message, err := p.parseTemplate(mailTemplate, data)
+func (p *mailProvider) Send(mail mail.Mailable, to string) {
+	mailTemplate := mail.Build()
+	message, err := p.parseTemplate(mailTemplate)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if ok := p.sendMail(to, subject, message); ok {
+	if ok := p.sendMail(to, mailTemplate.Subject, message); ok {
 		log.Printf("Email has been sent to %s\n", to)
 	} else {
 		log.Printf("Failed to send the email to %s\n", to)
 	}
 }
 
-func (p *mailProvider) parseTemplate(mailTemplate string, data interface{}) (string, error) {
-	t, err := template.ParseFiles(mailTemplate)
+func (p *mailProvider) parseTemplate(mailTemplate *mail.Template) (string, error) {
+	t, err := template.ParseFiles(mailTemplate.TemplatePath)
 	if err != nil {
 		return "", err
 	}
 	buffer := new(bytes.Buffer)
-	if err = t.Execute(buffer, data); err != nil {
+	if err = t.Execute(buffer, mailTemplate.Context); err != nil {
 		return "", err
 	}
 	return buffer.String(), nil
@@ -59,7 +61,7 @@ func (p *mailProvider) sendMail(to string, subject string, message string) bool 
 }
 
 type MailProvider interface {
-	Send(mailTemplate string, to string, subject string, data interface{})
+	Send(mail mail.Mailable, to string)
 }
 
 func NewMailProvider(host string, port string, from string, password string) MailProvider {

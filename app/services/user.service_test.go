@@ -18,7 +18,7 @@ func testSetup(t *testing.T) (UserService, models.User) {
 	var userRepositoryMock = new(mocks.UserRepository)
 
 	userRepositoryMock.On("Create", mock.Anything).Return(user)
-	mailProviderMock.On("Send", mock.Anything, mock.Anything, mock.Anything)
+	mailProviderMock.On("Send", mock.Anything, mock.Anything)
 
 	var service = NewUserService(userRepositoryMock, mailProviderMock)
 	return service, user
