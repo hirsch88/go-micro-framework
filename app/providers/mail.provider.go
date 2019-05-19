@@ -2,7 +2,6 @@ package providers
 
 import (
 	"bytes"
-	"github.com/hirsch88/go-micro-framework/app/mail"
 	"github.com/hirsch88/go-micro-framework/lib"
 	"html/template"
 	"log"
@@ -15,7 +14,7 @@ type mailProvider struct {
 	password string
 }
 
-func (p *mailProvider) Send(mail mail.Mailable, to string) {
+func (p *mailProvider) Send(mail lib.Mailable, to string) {
 	mailTemplate := mail.Build()
 	message, err := p.parseTemplate(mailTemplate)
 	if err != nil {
@@ -28,7 +27,7 @@ func (p *mailProvider) Send(mail mail.Mailable, to string) {
 	}
 }
 
-func (p *mailProvider) parseTemplate(mailTemplate *mail.Template) (string, error) {
+func (p *mailProvider) parseTemplate(mailTemplate *lib.MailTemplate) (string, error) {
 	t, err := template.ParseFiles(mailTemplate.TemplatePath)
 	if err != nil {
 		return "", err
@@ -61,7 +60,7 @@ func (p *mailProvider) sendMail(to string, subject string, message string) bool 
 }
 
 type MailProvider interface {
-	Send(mail mail.Mailable, to string)
+	Send(mail lib.Mailable, to string)
 }
 
 func NewMailProvider(host string, port string, from string, password string) MailProvider {
