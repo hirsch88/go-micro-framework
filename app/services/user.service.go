@@ -13,7 +13,12 @@ type userService struct {
 
 func (s *userService) Create(user models.User) models.User {
 	newUser := s.userRepository.Create(user)
-	s.mail.Send(user.Email, "Registration Confirmation", "Hello "+user.Username)
+	s.mail.Send(
+		"resources/mail/userCreated.mail.html",
+		user.Email,
+		"Registration Confirmation",
+		map[string]string{"username": user.Username},
+	)
 	return newUser
 }
 

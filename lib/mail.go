@@ -3,7 +3,6 @@ package lib
 import (
 	"crypto/tls"
 	"fmt"
-	"log"
 	"net/smtp"
 )
 
@@ -16,6 +15,10 @@ import (
 | https://hackernoon.com/golang-sendmail-sending-mail-through-net-smtp-package-5cadbe2670e0
 |
 */
+
+const (
+	MIME = "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+)
 
 type Mail struct {
 	From    string
@@ -38,11 +41,12 @@ func (mail *Mail) BuildMessage() string {
 	message += fmt.Sprintf("From: %s\r\n", mail.From)
 	message += fmt.Sprintf("To: %s\r\n", mail.To)
 	message += fmt.Sprintf("Subject: %s\r\n", mail.Subject)
-	message += "\r\n" + mail.Body
+	message += fmt.Sprintf("%s\r\n", MIME)
+	message += mail.Body
 	return message
 }
 
-func SendMail(smtpServer SmtpServer, mail Mail, password string) {
+func SendMail(smtpServer SmtpServer, mail Mail, password string) error {
 	messageBody := mail.BuildMessage()
 	auth := smtp.PlainAuth("", mail.From, password, smtpServer.Host)
 
@@ -55,43 +59,44 @@ func SendMail(smtpServer SmtpServer, mail Mail, password string) {
 	// TLS config
 	conn, err := tls.Dial("tcp", smtpServer.ServerName(), tlsConfig)
 	if err != nil {
-		log.Panic(err)
+		return err
 	}
 
 	client, err := smtp.NewClient(conn, smtpServer.Host)
 	if err != nil {
-		log.Panic(err)
+		return err
 	}
 
 	// step 1: Use Auth
 	if err = client.Auth(auth); err != nil {
-		log.Panic(err)
+		return err
 	}
 
 	// step 2: add all from and to
 	if err = client.Mail(mail.From); err != nil {
-		log.Panic(err)
+		return err
 	}
 	if err = client.Rcpt(mail.To); err != nil {
-		log.Panic(err)
+		return err
 	}
 
 	// Data
 	w, err := client.Data()
 	if err != nil {
-		log.Panic(err)
+		return err
 	}
 
 	_, err = w.Write([]byte(messageBody))
 	if err != nil {
-		log.Panic(err)
+		return err
 	}
 
 	err = w.Close()
 	if err != nil {
-		log.Panic(err)
+		return err
 	}
 
 	client.Quit()
+	return nil
 
 }
