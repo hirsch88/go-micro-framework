@@ -1,11 +1,11 @@
-package lib
+package providers
 
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 )
 
-func DB(dialect string, connection string, logMode bool, idleConnections int, openConnections int) func() *gorm.DB {
+func DatabaseProvider(dialect string, connection string, logMode bool, idleConnections int, openConnections int) func() *gorm.DB {
 	return func() *gorm.DB {
 		db, err := gorm.Open(dialect, connection)
 
