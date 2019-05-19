@@ -5,26 +5,46 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func DatabaseProvider(dialect string, connection string, logMode bool, idleConnections int, openConnections int) func() *gorm.DB {
-	return func() *gorm.DB {
-		db, err := gorm.Open(dialect, connection)
+type databaseProvider struct {
+	dialect         string
+	connection      string
+	logMode         bool
+	idleConnections int
+	openConnections int
+}
 
-		if err != nil {
-			fmt.Println(err.Error())
-			panic("failed to connect database")
-		}
+func (p *databaseProvider) Connect() *gorm.DB {
+	db, err := gorm.Open(p.dialect, p.connection)
 
-		if err = db.DB().Ping(); err != nil {
-			panic(err)
-		}
-
-		db.LogMode(logMode)
-		db.DB().SetMaxIdleConns(idleConnections)
-		db.DB().SetMaxOpenConns(openConnections)
-
-		// Here you might migrate your database with the models
-		//db.AutoMigrate(&models.User{})
-
-		return db
+	if err != nil {
+		fmt.Println(err.Error())
+		panic("failed to connect database")
 	}
+
+	if err = db.DB().Ping(); err != nil {
+		panic(err)
+	}
+
+	db.LogMode(p.logMode)
+	db.DB().SetMaxIdleConns(p.idleConnections)
+	db.DB().SetMaxOpenConns(p.openConnections)
+
+	return db
+}
+
+func (p *databaseProvider) Migrate() {
+	db := p.Connect()
+	defer db.Close()
+
+	// Here you might migrate your database with the models
+	//db.AutoMigrate(&models.User{})
+}
+
+type DatabaseProvider interface {
+	Connect() *gorm.DB
+	Migrate()
+}
+
+func NewDatabaseProvider(dialect string, connection string, logMode bool, idleConnections int, openConnections int) DatabaseProvider {
+	return &databaseProvider{dialect, connection, logMode, idleConnections, openConnections}
 }

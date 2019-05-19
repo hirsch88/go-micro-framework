@@ -2,17 +2,17 @@ package repositories
 
 import (
 	"github.com/hirsch88/go-micro-framework/app/models"
-	"github.com/jinzhu/gorm"
+	"github.com/hirsch88/go-micro-framework/app/providers"
 	"github.com/sirupsen/logrus"
 )
 
 type userRepository struct {
-	db func() *gorm.DB
+	database providers.DatabaseProvider
 }
 
 func (r *userRepository) Create(user models.User) models.User {
 	logrus.Info("STARTING UserController.create()")
-	db := r.db()
+	db := r.database.Connect()
 	defer db.Close()
 
 	db.Create(&user)
@@ -23,8 +23,8 @@ type UserRepository interface {
 	Create(user models.User) models.User
 }
 
-func NewUserRepository(db func() *gorm.DB) UserRepository {
+func NewUserRepository(database providers.DatabaseProvider) UserRepository {
 	return &userRepository{
-		db,
+		database,
 	}
 }

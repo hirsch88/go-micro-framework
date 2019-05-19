@@ -11,26 +11,26 @@ type mailProvider struct {
 	password string
 }
 
-func (m *mailProvider) SendMail(to string, subject string, body string) {
+func (p *mailProvider) Send(to string, subject string, body string) {
 
 	smtpServer := lib.SmtpServer{
-		Host: m.host,
-		Port: m.port,
+		Host: p.host,
+		Port: p.port,
 	}
 
 	mail := lib.Mail{
-		From:    m.from,
+		From:    p.from,
 		To:      to,
 		Subject: subject,
 		Body:    body,
 	}
 
-	lib.SendMail(smtpServer, mail, m.password)
+	lib.SendMail(smtpServer, mail, p.password)
 
 }
 
 type MailProvider interface {
-	SendMail(to string, subject string, body string)
+	Send(to string, subject string, body string)
 }
 
 func NewMailProvider(host string, port string, from string, password string) MailProvider {

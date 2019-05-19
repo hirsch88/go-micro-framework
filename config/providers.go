@@ -2,7 +2,6 @@ package config
 
 import (
 	"github.com/hirsch88/go-micro-framework/app/providers"
-	"github.com/jinzhu/gorm"
 )
 
 func Providers() *ProvidersConfig {
@@ -12,13 +11,14 @@ func Providers() *ProvidersConfig {
 		| Database Provider
 		|--------------------------------------------------------------------------
 		*/
-		Database: providers.DatabaseProvider(
+		Database: providers.NewDatabaseProvider(
 			Database().Dialect,
 			Database().Connection,
 			Database().LogMode,
 			Database().IdleConnections,
 			Database().OpenConnections,
 		),
+
 		/*
 		|--------------------------------------------------------------------------
 		| Mail Provider
@@ -34,6 +34,6 @@ func Providers() *ProvidersConfig {
 }
 
 type ProvidersConfig struct {
-	Database func() *gorm.DB
+	Database providers.DatabaseProvider
 	Mail     providers.MailProvider
 }
