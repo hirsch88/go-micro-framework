@@ -1,10 +1,31 @@
 package services
 
-import "testing"
+import (
+	"github.com/hirsch88/go-micro-framework/app/models"
+	"github.com/hirsch88/go-micro-framework/mocks"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
+	"testing"
+)
 
-//mockgen -source=./app/repositories/user.repository.go -destination
-//mockgen -source=user.repository.go -destination=./user.repository_mock.go
+func testSetup(t *testing.T) (UserService, models.User){
+	var user = models.User{
+		Username: "bubu",
+		Email:    "bubu@test.ch",
+	}
 
-func TestCreate(t *testing.T){
-	mockArticleRepo := new(mock_repositories)
+	var userRepositoryMock = new(mocks.UserRepository)
+	userRepositoryMock.On("Create", mock.Anything).Return(user)
+
+	var service = NewUserService(userRepositoryMock)
+	return service, user
+}
+
+func TestCreate(t *testing.T) {
+	service, user := testSetup(t)
+
+	returnedUser := service.Create(user)
+
+	assert.Equal(t, "bubu", returnedUser.Username)
+	assert.Equal(t, "bubu@test.ch", returnedUser.Email)
 }
