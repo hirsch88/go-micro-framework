@@ -1,4 +1,4 @@
-package mail
+package lib
 
 type Mailable interface {
 	Build() *Template
