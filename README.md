@@ -18,7 +18,7 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 - [X] Add start banner
 - [X] Add app structure with service and repos
 - [X] Add mock generations
-- [ ] Add unit testing
+- [X] Add unit testing
 - [ ] Add Mail
 
 ## ❯ Installation

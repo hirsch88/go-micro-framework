@@ -1,16 +1,11 @@
 package bootstrap
 
 import (
-	"github.com/danielkov/gin-helmet"
-	"github.com/gin-contrib/cors"
-	"github.com/gin-contrib/gzip"
-	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/hirsch88/go-micro-framework/config"
 	"github.com/hirsch88/go-micro-framework/lib"
 	"github.com/hirsch88/go-micro-framework/routes"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/thinkerou/favicon"
 )
 
 func App() *gin.Engine {
@@ -37,20 +32,9 @@ func App() *gin.Engine {
 	|
 	*/
 
-	app.Use(
-		lib.Logger(),
-		cors.Default(),
-		gzip.Gzip(gzip.DefaultCompression),
-		helmet.NoSniff(),
-		helmet.DNSPrefetchControl(),
-		helmet.FrameGuard(),
-		helmet.SetHSTS(true),
-		helmet.IENoOpen(),
-		helmet.XSSFilter(),
-		helmet.NoCache(),
-		favicon.New("./public/favicon.ico"),
-		static.Serve("/", static.LocalFile("./public", false)),
-	)
+	if gin.Mode() != "test" {
+		config.Middlewares(app)
+	}
 
 	/*
 	|--------------------------------------------------------------------------
