@@ -1,10 +1,10 @@
-package lib
+package mail
 
 type Mailable interface {
-	Build() *MailTemplate
+	Build() *Template
 }
 
-type MailTemplate struct {
+type Template struct {
 	TemplatePath string
 	Subject      string
 	Context      interface{}
