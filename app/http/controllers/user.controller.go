@@ -10,7 +10,7 @@ import (
 )
 
 type UserController struct {
-	userService *services.UserService
+	userService services.UserService
 }
 
 func (c *UserController) Create(ctx *gin.Context) {
@@ -29,7 +29,7 @@ func (c *UserController) Create(ctx *gin.Context) {
 	log.WithField("username", user.Username).Info("FINISHED UserController.create()")
 }
 
-func NewUserController(userService *services.UserService) *UserController {
+func NewUserController(userService services.UserService) *UserController {
 	return &UserController{
 		userService,
 	}

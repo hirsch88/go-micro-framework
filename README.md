@@ -16,7 +16,9 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 - [X] Load env vars from .env
 - [X] Add database orm
 - [X] Add start banner
-- [ ] Add app structure with service, dtos and repos
+- [X] Add app structure with service and repos
+- [X] Add mock generations
+- [ ] Add unit testing
 - [ ] Add Mail
 
 ## ❯ Installation
@@ -77,6 +79,19 @@ goose -dir database/migrations mysql "root:root@/go-micro-framework?parseTime=tr
 
 ```shell
 goose -dir database/migrations create create_user_table sql
+```
+
+## ❯ Testing
+
+For testing our awesome app we decided to use the toolkit [stretchr/testify](https://github.com/stretchr/testify).
+
+### Create Mocks
+
+To automatically generate the mocks we use [vektra/mockery](https://github.com/vektra/mockery). 
+The below command example generates the mock files of our interfaces inside the /app folder.
+
+```shell
+mockery -dir=./app -recursive=true -all 
 ```
 
 ## ❯ License

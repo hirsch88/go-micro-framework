@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/hirsch88/go-micro-framework/app/middlewares"
+	"github.com/hirsch88/go-micro-framework/app/http/middlewares"
 	"github.com/hirsch88/go-micro-framework/config"
 )
 

@@ -6,11 +6,11 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type UserRepository struct {
+type userRepository struct {
 	db func() *gorm.DB
 }
 
-func (r *UserRepository) Create(user models.User) models.User {
+func (r *userRepository) Create(user models.User) models.User {
 	logrus.Info("STARTING UserController.create()")
 	db := r.db()
 	defer db.Close()
@@ -19,8 +19,12 @@ func (r *UserRepository) Create(user models.User) models.User {
 	return user
 }
 
-func NewUserRepository(db func() *gorm.DB) *UserRepository {
-	return &UserRepository{
+type UserRepository interface {
+	Create(user models.User) models.User
+}
+
+func NewUserRepository(db func() *gorm.DB) UserRepository {
+	return &userRepository{
 		db,
 	}
 }

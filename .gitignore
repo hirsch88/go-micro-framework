@@ -23,3 +23,6 @@
 
 ### Environment variables ###
 .env
+
+### Generated mock files ###
+/mocks
