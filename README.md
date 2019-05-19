@@ -7,21 +7,6 @@ We like you to be focused on your business and not spending hours in project con
 
 Try it!! We are happy to hear your feedback or any kind of new features.
 
-## ❯ ToDo's
-- [X] Add Gin
-- [X] Add Middlewares
-- [X] Add API Testing
-- [X] Add Dependency Management
-- [X] Add Migrations
-- [X] Load env vars from .env
-- [X] Add database orm
-- [X] Add start banner
-- [X] Add app structure with service and repos
-- [X] Add mock generations
-- [X] Add unit testing
-- [X] Add Mail
-- [ ] Add Mail Templating
-
 ## ❯ Installation
 
 ```shell

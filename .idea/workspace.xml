@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4eb4685-c1a0-402c-b2e3-c71140d08f42" name="Default Changelist" comment=":sparkles: Add migrations and dependency management">
-      <change afterPath="$PROJECT_DIR$/app/mail/mailable.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/mail/userCreated.mail.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/providers/mail.provider.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/providers/mail.provider.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/user.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/user.service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/user.service_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/user.service_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/mail/userCreated.mail.html" beforeDir="false" afterPath="$PROJECT_DIR$/resources/mail/userCreated.mail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,14 +26,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/services/user.service_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
+            <state relative-caret-position="440">
               <caret line="22" column="70" lean-forward="true" selection-start-line="22" selection-start-column="70" selection-end-line="22" selection-end-column="70" />
               <folding>
                 <element signature="e#18#214#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="425">
+                <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -108,7 +114,6 @@
         <option value="$PROJECT_DIR$/bootstrap/app.go" />
         <option value="$PROJECT_DIR$/config/container.go" />
         <option value="$PROJECT_DIR$/config/mail.go" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/app/providers/database.provider.go" />
         <option value="$PROJECT_DIR$/config/providers.go" />
         <option value="$PROJECT_DIR$/app/repositories/user.repository.go" />
@@ -120,6 +125,7 @@
         <option value="$PROJECT_DIR$/resources/mail/userCreated.mail.html" />
         <option value="$PROJECT_DIR$/app/services/user.service.go" />
         <option value="$PROJECT_DIR$/app/services/user.service_test.go" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -169,7 +175,7 @@
     <property name="GO_FMT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558294144927" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558294203710" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -205,7 +211,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build">
+  <component name="RunManager" selected="Go Test.go test e2e">
     <configuration name="go build" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
       <module name="go-micro-framework" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -288,17 +294,11 @@
       <workItem from="1558036617111" duration="38000" />
       <workItem from="1558036810308" duration="4896000" />
       <workItem from="1558119434452" duration="5162000" />
-      <workItem from="1558161681588" duration="25047000" />
+      <workItem from="1558161681588" duration="25146000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="go_test_e2e - 2019.05.19 at 10h 56m 27s.xml">
-      <configuration name="go test e2e" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="go_test_unit - 2019.05.19 at 10h 56m 36s.xml">
-      <configuration name="go test unit" configurationId="GoTestRunConfiguration" />
-    </history-entry>
     <history-entry file="go_test_unit - 2019.05.19 at 20h 16m 31s.xml">
       <configuration name="go test unit" configurationId="GoTestRunConfiguration" />
     </history-entry>
@@ -323,9 +323,15 @@
     <history-entry file="go_test_unit - 2019.05.19 at 20h 24m 59s.xml">
       <configuration name="go test unit" configurationId="GoTestRunConfiguration" />
     </history-entry>
+    <history-entry file="go_test_unit - 2019.05.19 at 21h 29m 19s.xml">
+      <configuration name="go test unit" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="go_test_e2e - 2019.05.19 at 21h 29m 25s.xml">
+      <configuration name="go test e2e" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35143000" />
+    <option name="totallyTimeSpent" value="35242000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="23" width="1920" height="1057" extended-state="6" />
@@ -614,16 +620,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="336">
-            <caret line="24" column="17" lean-forward="true" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/mail.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -724,11 +720,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/services/user.service_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
+        <state relative-caret-position="440">
           <caret line="22" column="70" lean-forward="true" selection-start-line="22" selection-start-column="70" selection-end-line="22" selection-end-column="70" />
           <folding>
             <element signature="e#18#214#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="425">
+            <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
