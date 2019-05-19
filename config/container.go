@@ -4,7 +4,6 @@ import (
 	"github.com/hirsch88/go-micro-framework/app/http/controllers"
 	"github.com/hirsch88/go-micro-framework/app/repositories"
 	"github.com/hirsch88/go-micro-framework/app/services"
-	"github.com/jinzhu/gorm"
 )
 
 /*
@@ -22,21 +21,21 @@ type Container struct {
 	UserController controllers.UserController
 }
 
-func NewContainer(db func() *gorm.DB) Container {
+func NewContainer(providers *ProvidersConfig) Container {
 
 	/*
 	|--------------------------------------------------------------------------
 	| Register Repositories
 	|--------------------------------------------------------------------------
 	*/
-	userRepository := repositories.NewUserRepository(db)
+	userRepository := repositories.NewUserRepository(providers.Database)
 
 	/*
 	|--------------------------------------------------------------------------
 	| Register Services
 	|--------------------------------------------------------------------------
 	*/
-	userService := services.NewUserService(userRepository)
+	userService := services.NewUserService(userRepository, providers.Mail)
 
 	/*
 	|--------------------------------------------------------------------------

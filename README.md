@@ -19,7 +19,8 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 - [X] Add app structure with service and repos
 - [X] Add mock generations
 - [X] Add unit testing
-- [ ] Add Mail
+- [X] Add Mail
+- [ ] Add Mail Templating
 
 ## ❯ Installation
 

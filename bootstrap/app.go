@@ -2,7 +2,6 @@ package bootstrap
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/hirsch88/go-micro-framework/app/providers"
 	"github.com/hirsch88/go-micro-framework/config"
 	"github.com/hirsch88/go-micro-framework/lib"
 	"github.com/hirsch88/go-micro-framework/routes"
@@ -48,13 +47,7 @@ func App() *gin.Engine {
 	|
 	*/
 
-	routes.API(app.Group(config.App().Prefix), config.NewContainer(providers.DatabaseProvider(
-		config.Database().Dialect,
-		config.Database().Connection,
-		config.Database().LogMode,
-		config.Database().IdleConnections,
-		config.Database().OpenConnections,
-	)))
+	routes.API(app.Group(config.App().Prefix), config.NewContainer(config.Providers()))
 
 	/*
 	|--------------------------------------------------------------------------
