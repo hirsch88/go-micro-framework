@@ -10,13 +10,9 @@ mocks:
 	@echo "Generating mocks..."
 	mockery -dir=./app -recursive=true -all
 
-test-e2e:
-	@echo "Running E2E tests..."
-	go test -v ./tests
-
 test:
 	@echo "Running unit tests..."
-	go test -v ./app
+	go test -v ./app/...
 
 run:
 	@echo "Running application..."
