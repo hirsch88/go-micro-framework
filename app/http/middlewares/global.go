@@ -1,4 +1,4 @@
-package config
+package middlewares
 
 import (
 	"github.com/danielkov/gin-helmet"
@@ -6,22 +6,11 @@ import (
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
-	"github.com/hirsch88/go-micro-framework/lib"
 	"github.com/thinkerou/favicon"
 )
 
-func Middlewares(app *gin.Engine) {
-	/*
-	|--------------------------------------------------------------------------
-	| Global Middlewares
-	|--------------------------------------------------------------------------
-	|
-	| Here we define the global middlewars of our application. Those will be added
-	| to the gin framework.
-	|
-	*/
-	app.Use(
-		lib.Logger(),
+func GlobalMiddlewares(engine *gin.Engine) {
+	engine.Use(
 		cors.Default(),
 		gzip.Gzip(gzip.DefaultCompression),
 		helmet.NoSniff(),

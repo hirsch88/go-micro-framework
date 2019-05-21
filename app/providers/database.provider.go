@@ -2,19 +2,17 @@ package providers
 
 import (
 	"fmt"
+	"github.com/hirsch88/go-micro-framework/config"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 type databaseProvider struct {
-	dialect         string
-	connection      string
-	logMode         bool
-	idleConnections int
-	openConnections int
+	config *config.DatabaseConfig
 }
 
 func (p *databaseProvider) Connect() *gorm.DB {
-	db, err := gorm.Open(p.dialect, p.connection)
+	db, err := gorm.Open(p.config.Dialect, p.config.Connection)
 
 	if err != nil {
 		fmt.Println(err.Error())
@@ -25,9 +23,9 @@ func (p *databaseProvider) Connect() *gorm.DB {
 		panic(err)
 	}
 
-	db.LogMode(p.logMode)
-	db.DB().SetMaxIdleConns(p.idleConnections)
-	db.DB().SetMaxOpenConns(p.openConnections)
+	db.LogMode(p.config.LogMode)
+	db.DB().SetMaxIdleConns(p.config.IdleConnections)
+	db.DB().SetMaxOpenConns(p.config.OpenConnections)
 
 	return db
 }
@@ -45,6 +43,6 @@ type DatabaseProvider interface {
 	Migrate()
 }
 
-func NewDatabaseProvider(dialect string, connection string, logMode bool, idleConnections int, openConnections int) DatabaseProvider {
-	return &databaseProvider{dialect, connection, logMode, idleConnections, openConnections}
+func NewDatabaseProvider(config *config.DatabaseConfig) DatabaseProvider {
+	return &databaseProvider{config}
 }

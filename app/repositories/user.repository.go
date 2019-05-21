@@ -3,7 +3,6 @@ package repositories
 import (
 	"github.com/hirsch88/go-micro-framework/app/models"
 	"github.com/hirsch88/go-micro-framework/app/providers"
-	"github.com/sirupsen/logrus"
 )
 
 type userRepository struct {
@@ -11,7 +10,6 @@ type userRepository struct {
 }
 
 func (r *userRepository) Create(user models.User) models.User {
-	logrus.Info("STARTING UserController.create()")
 	db := r.database.Connect()
 	defer db.Close()
 

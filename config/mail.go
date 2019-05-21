@@ -1,10 +1,6 @@
 package config
 
-import (
-	"github.com/hirsch88/go-micro-framework/lib"
-)
-
-func Mail() *MailConfig {
+func NewMailConfig() *MailConfig {
 	return &MailConfig{
 		/*
 		|--------------------------------------------------------------------------
@@ -16,11 +12,11 @@ func Mail() *MailConfig {
 		|
 		*/
 
-		Host:     lib.Env("MAIL_HOST", "smtp.googlemail.com"),
-		Port:     lib.Env("MAIL_PORT", "465"),
-		From:     lib.Env("MAIL_FROM", "example@gmail.com"),
-		Username: lib.Env("MAIL_USERNAME", "username"),
-		Password: lib.Env("MAIL_PASSWORD", "password"),
+		Host:     Env("MAIL_HOST", "smtp.googlemail.com"),
+		Port:     Env("MAIL_PORT", "465"),
+		From:     Env("MAIL_FROM", "example@gmail.com"),
+		Username: Env("MAIL_USERNAME", "username"),
+		Password: Env("MAIL_PASSWORD", "password"),
 	}
 }
 
