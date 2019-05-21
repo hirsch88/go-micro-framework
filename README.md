@@ -1,4 +1,4 @@
-# GoMicroFramework
+# :art: Go Micro Framework
 
 ## ❯ Why
 
@@ -11,44 +11,39 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 
 ```shell
 brew install go
-brew install dep
+brew install glide
 brew install goose
 brew install mysql
 ```
 
 ## ❯ Getting Started
 
-To start the server run.
+First we need to install the dependencies.
 ```shell
-go run main.go
+make install
 ```
 
-To run the api test run.
+
+To start the server run.
 ```shell
-go test -v ./tests
+make run
 ```
+
 
 ## ❯ Dependency Management
 
-Our dependency management tool is [dep](https://golang.github.io/dep/);
+Our dependency management tool is [glide](https://glide.sh/);
 
 ### Add Dependency
 
 ```shell
-dep ensure -add github.com/foo/bar
+glide get github.com/foo/bar
 ```
 
 ### Updating Dependencies
 
 ```shell
-// dry run testing an update
-dep ensure -update -n
-// non-dry run
-dep ensure -update
-// updates a specific package
-dep ensure -update github.com/gorilla/mux
-// updates to a specific version
-dep ensure -update github.com/gorilla/mux@1.0.0
+glide update
 ```
 
 ## ❯ Database Migrations
@@ -58,13 +53,13 @@ To manage our database schema we used the library [goose](https://github.com/pre
 ### Run migrations
 
 ```shell
-goose -dir database/migrations mysql "root:root@/go-micro-framework?parseTime=true" up 
+make db-migrate
 ```
 
 ### Create a migration
 
 ```shell
-goose -dir database/migrations create create_user_table sql
+make db-create-migration name=create_user_table
 ```
 
 ## ❯ Testing
@@ -77,7 +72,7 @@ To automatically generate the mocks we use [vektra/mockery](https://github.com/v
 The below command example generates the mock files of our interfaces inside the /app folder.
 
 ```shell
-mockery -dir=./app -recursive=true -all 
+make mocks
 ```
 
 ## ❯ License
