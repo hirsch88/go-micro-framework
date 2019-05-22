@@ -1,24 +1,19 @@
-package core
+package providers
 
 import (
 	"crypto/tls"
 	"fmt"
+	"go.uber.org/zap"
 	"net/smtp"
 )
-
-/*
-|--------------------------------------------------------------------------
-| GMail lib
-|--------------------------------------------------------------------------
-|
-| This is solution to send emails with the gmail server.
-| https://hackernoon.com/golang-sendmail-sending-mail-through-net-smtp-package-5cadbe2670e0
-|
-*/
 
 const (
 	MIME = "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
 )
+
+type smtpMailProvider struct {
+	log *zap.SugaredLogger
+}
 
 type Mail struct {
 	From    string
@@ -46,7 +41,7 @@ func (mail *Mail) BuildMessage() string {
 	return message
 }
 
-func SendMail(smtpServer SmtpServer, mail Mail, password string) error {
+func (p *smtpMailProvider) Send(smtpServer SmtpServer, mail Mail, password string) error {
 	messageBody := mail.BuildMessage()
 	auth := smtp.PlainAuth("", mail.From, password, smtpServer.Host)
 
@@ -98,5 +93,12 @@ func SendMail(smtpServer SmtpServer, mail Mail, password string) error {
 
 	client.Quit()
 	return nil
+}
 
+type SMTPMailProvider interface {
+	Send(smtpServer SmtpServer, mail Mail, password string) error
+}
+
+func NewSMTPMailProvider(log *zap.SugaredLogger) SMTPMailProvider {
+	return &smtpMailProvider{log}
 }

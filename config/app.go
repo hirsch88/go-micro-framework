@@ -7,7 +7,9 @@ func NewAppConfig() *AppConfig {
 		| Environment Name
 		|--------------------------------------------------------------------------
 		|
-		| TODO
+		| With the help of the environment name we can implement different behaviour for
+		| our environments. For example for local development we like to have another
+		| logger encoding with colors, but in production we have the JSON encoding.
 		|
 		*/
 

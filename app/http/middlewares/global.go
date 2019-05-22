@@ -9,8 +9,8 @@ import (
 	"github.com/thinkerou/favicon"
 )
 
-func GlobalMiddlewares(engine *gin.Engine) {
-	engine.Use(
+func GlobalMiddlewares(server *gin.Engine) {
+	server.Use(
 		cors.Default(),
 		gzip.Gzip(gzip.DefaultCompression),
 		helmet.NoSniff(),

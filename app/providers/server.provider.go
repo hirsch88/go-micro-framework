@@ -1,4 +1,4 @@
-package core
+ package providers
 
 import (
 	"context"
@@ -11,12 +11,12 @@ import (
 	"time"
 )
 
-func NewGinEngine(lifecycle fx.Lifecycle, appConfig *config.AppConfig, log *zap.SugaredLogger) *gin.Engine {
+func NewServerProvider(lifecycle fx.Lifecycle, appConfig *config.AppConfig, log *zap.SugaredLogger) *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 
-	engine := gin.New()
-	engine.Use(ginzap.Ginzap(log.Desugar(), time.RFC3339, true))
-	engine.Use(ginzap.RecoveryWithZap(log.Desugar(), true))
+	server := gin.New()
+	server.Use(ginzap.Ginzap(log.Desugar(), time.RFC3339, true))
+	server.Use(ginzap.RecoveryWithZap(log.Desugar(), true))
 
 	lifecycle.Append(fx.Hook{
 		OnStart: func(context.Context) error {
@@ -28,9 +28,9 @@ func NewGinEngine(lifecycle fx.Lifecycle, appConfig *config.AppConfig, log *zap.
 				fmt.Println("")
 			}
 
-			return engine.Run(":" + appConfig.Port)
+			return server.Run(":" + appConfig.Port)
 		},
 	})
 
-	return engine
+	return server
 }

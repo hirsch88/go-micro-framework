@@ -7,7 +7,6 @@ import (
 	"github.com/hirsch88/go-micro-framework/app/repositories"
 	"github.com/hirsch88/go-micro-framework/app/services"
 	"github.com/hirsch88/go-micro-framework/config"
-	"github.com/hirsch88/go-micro-framework/core"
 	"github.com/hirsch88/go-micro-framework/routes"
 	"go.uber.org/fx"
 )
@@ -40,13 +39,13 @@ func App() *fx.App {
 		fx.Provide(config.NewDatabaseConfig),
 		fx.Provide(config.NewMailConfig),
 
-		// Core (./core)
-		fx.Provide(core.NewLogger),
-		fx.Provide(core.NewGinEngine),
-
 		// Providers (./app/providers)
+		fx.Provide(providers.NewLoggerProvider),
+		fx.Provide(providers.NewTemplateProvider),
 		fx.Provide(providers.NewDatabaseProvider),
+		fx.Provide(providers.NewSMTPMailProvider),
 		fx.Provide(providers.NewMailProvider),
+		fx.Provide(providers.NewServerProvider),
 
 		// Repositores (./app/repositores)
 		fx.Provide(repositories.NewUserRepository),

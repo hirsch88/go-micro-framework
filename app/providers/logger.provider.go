@@ -1,4 +1,4 @@
-package core
+package providers
 
 import (
 	"github.com/hirsch88/go-micro-framework/config"
@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func NewLogger(config *config.AppConfig) *zap.SugaredLogger {
+func NewLoggerProvider(config *config.AppConfig) *zap.SugaredLogger {
 	var log *zap.Logger
 	if config.Env != "production" {
 		logConfig := zap.NewDevelopmentConfig()

@@ -1,5 +1,5 @@
-hash: b80788789545d586caf8188460d9d3cadc0a2d5ebe3a0102414123817119c6f7
-updated: 2019-05-22T21:31:44.160342+02:00
+hash: eda1a8f1df24e0bd470793d889c2da50f81f62c0c1b24ce13386f3a985803657
+updated: 2019-05-22T21:55:48.062149+02:00
 imports:
 - name: github.com/danielkov/gin-helmet
   version: 1387e224435edcb84dfc4bfc81fe56fc807ca98b
@@ -64,6 +64,8 @@ imports:
   - codec
 - name: github.com/vektra/mockery
   version: e78b021dcbb558a8e7ac1fc5bc757ad7c277bb81
+- name: github.com/wantedly/gorm-zap
+  version: 372d3517a8765add76f351e583b651f841366859
 - name: go.uber.org/atomic
   version: df976f2515e274675050de7b3f42545de80594fd
 - name: go.uber.org/dig
