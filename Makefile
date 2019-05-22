@@ -8,6 +8,7 @@ install:
 
 mock:
 	@echo "Generating mocks..."
+	mockery --version || go get -u -f github.com/vektra/mockery/.../
 	mockery -dir=./app -recursive=true -all
 
 test:
