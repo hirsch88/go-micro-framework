@@ -6,6 +6,7 @@ cache:
   directories:
     - vendor
 install:
+  - cp .env.example .env
   - make install
 script:
   - make test

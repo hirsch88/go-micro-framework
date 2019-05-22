@@ -1,4 +1,4 @@
-# :art: Go Micro Framework
+# :art: Go Micro Framework [![Build Status](https://travis-ci.org/hirsch88/go-micro-framework.svg?branch=master)](https://travis-ci.org/hirsch88/go-micro-framework)
 
 ## ❯ Why
 
