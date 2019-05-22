@@ -1,82 +1,90 @@
 package bootstrap
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/hirsch88/go-micro-framework/app/http/controllers"
+	"github.com/hirsch88/go-micro-framework/app/http/middlewares"
+	"github.com/hirsch88/go-micro-framework/app/providers"
+	"github.com/hirsch88/go-micro-framework/app/repositories"
+	"github.com/hirsch88/go-micro-framework/app/services"
 	"github.com/hirsch88/go-micro-framework/config"
-	"github.com/hirsch88/go-micro-framework/lib"
+	"github.com/hirsch88/go-micro-framework/core"
 	"github.com/hirsch88/go-micro-framework/routes"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"go.uber.org/fx"
 )
 
-func App() *gin.Engine {
-
+func App() *fx.App {
 	/*
 	|--------------------------------------------------------------------------
 	| Create The Application
 	|--------------------------------------------------------------------------
 	|
-	| The first thing we will do is create a new GIN Application. All the
-	| middlewares and routes will be added to this instance.
-	|
-	*/
-
-	app := gin.New()
-
-	/*
-	|--------------------------------------------------------------------------
-	| Register Middlewares
-	|--------------------------------------------------------------------------
-	|
-	| Next, we need to register all the global middlewares into the application.
-	| All the incoming request will be passing those middlewares.
-	|
-	*/
-
-	if gin.Mode() != "test" {
-		config.Middlewares(app)
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| Register Routes & Build up the IoC Container
-	|--------------------------------------------------------------------------
-	|
-	| Here we add our api endpoints to the application. These routes are prefixed
-	| with the default value 'api'. Moreover we pass a function to the container build
-	| up, which can create a new database connection.
-	|
-	*/
-
-	routes.API(app.Group(config.App().Prefix), config.NewContainer(config.Providers()))
-
-	/*
-	|--------------------------------------------------------------------------
-	| Print Application Banner to the Console
-	|--------------------------------------------------------------------------
-	|
-	| This script returns the application instance. The instance is given to
-	| the calling script so we can separate the building of the instances
+	| The first thing we will do is create a new Application. Then we have to
+	| provide all our application items like controllers, services and stuff.
+	| The Goal of this file is to separate the building of the instances
 	| from the actual running of the application and sending responses.
 	|
 	*/
+	return fx.New(
+		/*
+		|--------------------------------------------------------------------------
+		| Application Dependency Injections
+		|--------------------------------------------------------------------------
+		|
+		| Here is where you can inject your controllers, services and repositories,
+		| which are use in the routes.go file to bind the controllers to the routes.
+		|
+		*/
 
-	if gin.Mode() != "test" {
-		lib.PrintBanner(
-			config.App().ShowBanner,
-			config.App().Port,
-		)
-	}
+		// Configurations (./config)
+		fx.Provide(config.NewAppConfig),
+		fx.Provide(config.NewDatabaseConfig),
+		fx.Provide(config.NewMailConfig),
 
-	/*
-	|--------------------------------------------------------------------------
-	| Return The Application
-	|--------------------------------------------------------------------------
-	|
-	| This script returns the application instance. The instance is given to
-	| the calling script so we can separate the building of the instances
-	| from the actual running of the application and sending responses.
-	|
-	*/
+		// Core (./core)
+		fx.Provide(core.NewLogger),
+		fx.Provide(core.NewGinEngine),
 
-	return app
+		// Providers (./app/providers)
+		fx.Provide(providers.NewDatabaseProvider),
+		fx.Provide(providers.NewMailProvider),
+
+		// Repositores (./app/repositores)
+		fx.Provide(repositories.NewUserRepository),
+
+		// Services (./app/services)
+		fx.Provide(services.NewUserService),
+
+		// Middlewares (./app/middlewares)
+		fx.Provide(middlewares.NewLogMiddleware),
+
+		// Controllers (./app/controllers)
+		fx.Provide(controllers.NewAPIController),
+		fx.Provide(controllers.NewUserController),
+
+		/*
+		|--------------------------------------------------------------------------
+		| Register Middlewares
+		|--------------------------------------------------------------------------
+		|
+		| Next, we need to register all the global middlewares into the application.
+		| All the incoming request will be passing those middlewares.
+		|
+		*/
+
+		fx.Invoke(middlewares.GlobalMiddlewares),
+
+		/*
+		|--------------------------------------------------------------------------
+		| Invoke Register Routes
+		|--------------------------------------------------------------------------
+		|
+		| Here we add our api endpoints to the application. These routes are prefixed
+		| with the default value 'api'. Moreover we pass a function to the container build
+		| up, which can create a new database connection.
+		|
+		*/
+
+		fx.Invoke(routes.APIRoutes),
+
+	)
 }

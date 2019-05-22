@@ -7,10 +7,10 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"context"
 	"github.com/hirsch88/go-micro-framework/bootstrap"
-	"github.com/hirsch88/go-micro-framework/config"
-	"github.com/hirsch88/go-micro-framework/lib"
+	"github.com/joho/godotenv"
+	"log"
 )
 
 func main() {
@@ -25,7 +25,10 @@ func main() {
 	|
 	*/
 
-	lib.LoadEnv()
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	/*
 	|--------------------------------------------------------------------------
@@ -38,12 +41,11 @@ func main() {
 	|
 	*/
 
-	gin.SetMode(gin.ReleaseMode)
 	app := bootstrap.App()
 
 	/*
 	|--------------------------------------------------------------------------
-	| Run The GIN Application
+	| Run The Application
 	|--------------------------------------------------------------------------
 	|
 	| Once we have our application, we can listen for incoming request and send
@@ -51,6 +53,8 @@ func main() {
 	|
 	*/
 
-	app.Run(":" + config.App().Port)
+	if err := app.Start(context.Background()); err != nil {
+		log.Fatal(err)
+	}
 
 }

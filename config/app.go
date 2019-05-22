@@ -1,11 +1,18 @@
 package config
 
-import (
-	"github.com/hirsch88/go-micro-framework/lib"
-)
-
-func App() *AppConfig {
+func NewAppConfig() *AppConfig {
 	return &AppConfig{
+		/*
+		|--------------------------------------------------------------------------
+		| Environment Name
+		|--------------------------------------------------------------------------
+		|
+		| TODO
+		|
+		*/
+
+		Env: Env("APP_ENV", "production"),
+
 		/*
 		|--------------------------------------------------------------------------
 		| Application Name
@@ -17,7 +24,7 @@ func App() *AppConfig {
 		|
 		*/
 
-		Name: lib.Env("APP_NAME", "go-micro-framework"),
+		Name: Env("APP_NAME", "go-micro-framework"),
 
 		/*
 		|--------------------------------------------------------------------------
@@ -29,7 +36,7 @@ func App() *AppConfig {
 		|
 		*/
 
-		Port: lib.Env("APP_PORT", "go-micro-framework"),
+		Port: Env("APP_PORT", "go-micro-framework"),
 
 		/*
 		|--------------------------------------------------------------------------
@@ -42,7 +49,7 @@ func App() *AppConfig {
 		|
 		*/
 
-		Prefix: lib.Env("APP_PREFIX", "/api"),
+		Prefix: Env("APP_PREFIX", "/api"),
 
 		/*
 		|--------------------------------------------------------------------------
@@ -54,11 +61,12 @@ func App() *AppConfig {
 		|
 		*/
 
-		ShowBanner: lib.EnvBool("APP_SHOW_BANNER", true),
+		ShowBanner: EnvBool("APP_SHOW_BANNER", true),
 	}
 }
 
 type AppConfig struct {
+	Env        string
 	Name       string
 	Port       string
 	Prefix     string

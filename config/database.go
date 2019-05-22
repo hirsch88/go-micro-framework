@@ -1,8 +1,6 @@
 package config
 
-import "github.com/hirsch88/go-micro-framework/lib"
-
-func Database() *DatabaseConfig {
+func NewDatabaseConfig() *DatabaseConfig {
 	return &DatabaseConfig{
 		/*
 		|--------------------------------------------------------------------------
@@ -14,11 +12,11 @@ func Database() *DatabaseConfig {
 		|
 		*/
 
-		Dialect:         lib.Env("DB_DIALECT", "mysql"),
-		Connection:      lib.Env("DB_CONNECTION", "root:root@/go-micro-framework?charset=utf8mb4&parseTime=True&loc=Local"),
-		LogMode:         lib.EnvBool("DB_LOG_MODE", false),
-		IdleConnections: lib.EnvNumber("DB_IDLE_CONNECTIONS", 10),
-		OpenConnections: lib.EnvNumber("DB_OPEN_CONNECTIONS", 100),
+		Dialect:         Env("DB_DIALECT", "mysql"),
+		Connection:      Env("DB_CONNECTION", "root:root@/go-micro-framework?charset=utf8mb4&parseTime=True&loc=Local"),
+		LogMode:         EnvBool("DB_LOG_MODE", false),
+		IdleConnections: EnvNumber("DB_IDLE_CONNECTIONS", 10),
+		OpenConnections: EnvNumber("DB_OPEN_CONNECTIONS", 100),
 	}
 }
 
