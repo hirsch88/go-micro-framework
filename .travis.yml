@@ -10,6 +10,6 @@ before_install:
 install:
   - make install
 before_script:
-  - make mocks
+  - make mock
 script:
   - make test

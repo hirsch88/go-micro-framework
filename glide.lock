@@ -1,5 +1,5 @@
-hash: 0f81078b27f974791f41f308670777fee83eb417bc95adcb6e0b730ca0d0f0b7
-updated: 2019-05-21T23:20:52.180913+02:00
+hash: b80788789545d586caf8188460d9d3cadc0a2d5ebe3a0102414123817119c6f7
+updated: 2019-05-22T21:31:44.160342+02:00
 imports:
 - name: github.com/danielkov/gin-helmet
   version: 1387e224435edcb84dfc4bfc81fe56fc807ca98b
@@ -38,7 +38,7 @@ imports:
 - name: github.com/joho/godotenv
   version: 23d116af351c84513e1946b527c88823e476be13
 - name: github.com/json-iterator/go
-  version: 1bc9828b4fb5814ad2bc0d2a5856f096964ed693
+  version: 68347ec4d6aeb43a4a8ebe4601061c6ad4096f6a
 - name: github.com/mattn/go-isatty
   version: c2a7a6ca930a4cd0bc33a3f298eb71960732a3a7
 - name: github.com/modern-go/concurrent
@@ -62,6 +62,8 @@ imports:
   version: 65dd1ed12c4802abb534866aaf7633e7520779ec
   subpackages:
   - codec
+- name: github.com/vektra/mockery
+  version: e78b021dcbb558a8e7ac1fc5bc757ad7c277bb81
 - name: go.uber.org/atomic
   version: df976f2515e274675050de7b3f42545de80594fd
 - name: go.uber.org/dig
@@ -86,7 +88,7 @@ imports:
   - internal/exit
   - zapcore
 - name: golang.org/x/sys
-  version: c432e742b0af385916e013f6a34e9e73d139cf82
+  version: 8097e1b27ff5e40620836729a9584e91b094b062
   subpackages:
   - unix
 - name: google.golang.org/appengine

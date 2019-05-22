@@ -6,7 +6,7 @@ install:
 	glide --version || go get -u -f github.com/Masterminds/glide
 	glide install
 
-mocks:
+mock:
 	@echo "Generating mocks..."
 	mockery -dir=./app -recursive=true -all
 

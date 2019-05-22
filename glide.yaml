@@ -27,3 +27,4 @@ import:
   version: ^1.9.0
 - package: go.uber.org/zap
   version: ^1.10.0
+- package: github.com/vektra/mockery
