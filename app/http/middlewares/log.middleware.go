@@ -1,25 +1,31 @@
 package middlewares
 
 import (
-	"log"
+	"go.uber.org/zap"
 	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Logger() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		// before request
-		t := time.Now()
+type LogMiddleware struct {
+	log *zap.SugaredLogger
+}
 
-		c.Next()
+func (m *LogMiddleware) Handler(ctx *gin.Context) {
+	// before request
+	t := time.Now()
 
-		// after request
-		latency := time.Since(t)
-		log.Print(latency)
+	ctx.Next()
 
-		// access the status we are sending
-		status := c.Writer.Status()
-		log.Println(status)
-	}
+	// after request
+	latency := time.Since(t)
+	m.log.Info(latency)
+
+	// access the status we are sending
+	status := ctx.Writer.Status()
+	m.log.Info(status)
+}
+
+func NewLogMiddleware(log *zap.SugaredLogger) *LogMiddleware {
+	return &LogMiddleware{log}
 }

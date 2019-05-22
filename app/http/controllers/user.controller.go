@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/hirsch88/go-micro-framework/app/services"
-	log "github.com/sirupsen/logrus"
+	"go.uber.org/zap"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,10 +11,11 @@ import (
 
 type UserController struct {
 	userService services.UserService
+	log         *zap.SugaredLogger
 }
 
 func (c *UserController) Create(ctx *gin.Context) {
-	log.Info("STARTING UserController.create()")
+	c.log.Info("STARTING UserController.create()")
 
 	user := models.User{}
 
@@ -26,11 +27,14 @@ func (c *UserController) Create(ctx *gin.Context) {
 	user = c.userService.Create(user)
 
 	ctx.JSON(http.StatusCreated, user)
-	log.WithField("username", user.Username).Info("FINISHED UserController.create()")
+	c.log.Infow("FINISHED UserController.create()",
+		"username", user.Username,
+	)
 }
 
-func NewUserController(userService services.UserService) *UserController {
+func NewUserController(userService services.UserService, log *zap.SugaredLogger) *UserController {
 	return &UserController{
 		userService,
+		log,
 	}
 }
