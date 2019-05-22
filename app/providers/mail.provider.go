@@ -5,12 +5,14 @@ import (
 	"github.com/hirsch88/go-micro-framework/app/mail"
 	"github.com/hirsch88/go-micro-framework/config"
 	"github.com/hirsch88/go-micro-framework/core"
+	"go.uber.org/zap"
 	"html/template"
 	"log"
 )
 
 type mailProvider struct {
 	config *config.MailConfig
+	log    *zap.SugaredLogger
 }
 
 func (p *mailProvider) Send(mail mail.Mailable, to string) {
@@ -20,9 +22,9 @@ func (p *mailProvider) Send(mail mail.Mailable, to string) {
 		log.Fatal(err)
 	}
 	if ok := p.sendMail(to, mailTemplate.Subject, message); ok {
-		log.Printf("Email has been sent to %s\n", to)
+		p.log.Infof("Email has been sent to %s", to)
 	} else {
-		log.Printf("Failed to send the email to %s\n", to)
+		p.log.Infof("Failed to send the email to %s", to)
 	}
 }
 
@@ -62,6 +64,6 @@ type MailProvider interface {
 	Send(mail mail.Mailable, to string)
 }
 
-func NewMailProvider(config *config.MailConfig) MailProvider {
-	return &mailProvider{config}
+func NewMailProvider(config *config.MailConfig, log *zap.SugaredLogger) MailProvider {
+	return &mailProvider{config, log}
 }

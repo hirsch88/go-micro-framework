@@ -5,9 +5,11 @@ go:
 cache:
   directories:
     - vendor
-install:
+before_install:
   - cp .env.example .env
+install:
   - make install
+before_script:
   - make mocks
 script:
   - make test

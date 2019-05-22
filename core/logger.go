@@ -3,12 +3,15 @@ package core
 import (
 	"github.com/hirsch88/go-micro-framework/config"
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 func NewLogger(config *config.AppConfig) *zap.SugaredLogger {
 	var log *zap.Logger
 	if config.Env != "production" {
-		log, _ = zap.NewDevelopment()
+		logConfig := zap.NewDevelopmentConfig()
+		logConfig.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+		log, _ = logConfig.Build()
 	} else {
 		log, _ = zap.NewProduction()
 	}
