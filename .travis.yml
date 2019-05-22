@@ -8,5 +8,6 @@ cache:
 install:
   - cp .env.example .env
   - make install
+  - make mocks
 script:
   - make test
