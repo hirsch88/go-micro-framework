@@ -15,8 +15,8 @@ func NewDatabaseConfig() *DatabaseConfig {
 		Dialect:         Env("DB_DIALECT", "mysql"),
 		Connection:      Env("DB_CONNECTION", "root:root@/go-micro-framework?charset=utf8mb4&parseTime=True&loc=Local"),
 		LogMode:         EnvBool("DB_LOG_MODE", false),
-		IdleConnections: EnvNumber("DB_IDLE_CONNECTIONS", 10),
-		OpenConnections: EnvNumber("DB_OPEN_CONNECTIONS", 100),
+		IdleConnections: EnvInt("DB_IDLE_CONNECTIONS", 10),
+		OpenConnections: EnvInt("DB_OPEN_CONNECTIONS", 100),
 	}
 }
 

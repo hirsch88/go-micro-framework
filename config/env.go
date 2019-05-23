@@ -14,7 +14,7 @@ func Env(key string, defaultValue string) string {
 	return value
 }
 
-func EnvNumber(key string, defaultValue int) int {
+func EnvInt(key string, defaultValue int) int {
 	value, err := strconv.Atoi(os.Getenv(key))
 	if err == nil {
 		return value

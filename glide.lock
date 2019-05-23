@@ -1,6 +1,10 @@
-hash: eda1a8f1df24e0bd470793d889c2da50f81f62c0c1b24ce13386f3a985803657
-updated: 2019-05-22T21:55:48.062149+02:00
+hash: 32963ceede77606798a16be3f1f0a5ab14afc8a4497d9ca40a23bdd8c1a4d0a1
+updated: 2019-05-23T20:13:51.691367+02:00
 imports:
+- name: github.com/aviddiviner/gin-limit
+  version: 43b5f79762c10a62aab8323f9fc45b87e784625f
+- name: github.com/cnjack/throttle
+  version: 525175b56e18aa4549190ed3a1a77c66925b9cef
 - name: github.com/danielkov/gin-helmet
   version: 1387e224435edcb84dfc4bfc81fe56fc807ca98b
 - name: github.com/davecgh/go-spew
@@ -38,7 +42,7 @@ imports:
 - name: github.com/joho/godotenv
   version: 23d116af351c84513e1946b527c88823e476be13
 - name: github.com/json-iterator/go
-  version: 68347ec4d6aeb43a4a8ebe4601061c6ad4096f6a
+  version: 08047c174c6c03e8ec963a411bde1b6d1ee67b26
 - name: github.com/mattn/go-isatty
   version: c2a7a6ca930a4cd0bc33a3f298eb71960732a3a7
 - name: github.com/modern-go/concurrent
@@ -90,9 +94,13 @@ imports:
   - internal/exit
   - zapcore
 - name: golang.org/x/sys
-  version: 8097e1b27ff5e40620836729a9584e91b094b062
+  version: 0e01d883c5c5e3a1741118a9962f68d71b0a6ed4
   subpackages:
   - unix
+- name: golang.org/x/time
+  version: 9d24e82272b4f38b78bc8cff74fa936d31ccd8ef
+  subpackages:
+  - rate
 - name: google.golang.org/appengine
   version: 311d3c5cf9373249645db030e53c37c209a8b378
   subpackages:

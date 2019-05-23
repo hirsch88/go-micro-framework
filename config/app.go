@@ -55,6 +55,19 @@ func NewAppConfig() *AppConfig {
 
 		/*
 		|--------------------------------------------------------------------------
+		| Simultaneous Connections
+		|--------------------------------------------------------------------------
+		|
+		| By default, http.ListenAndServe (which gin.Run wraps) will serve an unbounded
+		| number of requests. Limiting the number of simultaneous connections can
+		| sometimes greatly speed things up under load.
+		|
+		*/
+
+		Connection: EnvInt("APP_CONNECTIONS", 20),
+
+		/*
+		|--------------------------------------------------------------------------
 		| Application Banner
 		|--------------------------------------------------------------------------
 		|
@@ -73,4 +86,5 @@ type AppConfig struct {
 	Port       string
 	Prefix     string
 	ShowBanner bool
+	Connection int
 }

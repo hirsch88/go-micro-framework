@@ -1,11 +1,12 @@
 package routes
 
 import (
+	"github.com/cnjack/throttle"
 	"github.com/gin-gonic/gin"
 	"github.com/hirsch88/go-micro-framework/app/http/controllers"
-	"github.com/hirsch88/go-micro-framework/app/http/middlewares"
 	"github.com/hirsch88/go-micro-framework/config"
 	"go.uber.org/dig"
+	"time"
 )
 
 func APIRoutes(c RouterContext) {
@@ -23,14 +24,17 @@ func APIRoutes(c RouterContext) {
 		|
 		*/
 
-		api.Use(c.LogMiddleware.Handler)
-
 		api.GET("/ping", c.APIController.Ping)
-
 
 		users := api.Group("/users")
 		{
-			users.POST("", c.UserController.Create)
+			users.POST(
+				"",
+				throttle.Policy(&throttle.Quota{
+					Limit:  1,
+					Within: time.Hour,
+				}),
+				c.UserController.Create)
 		}
 
 	}
@@ -41,8 +45,6 @@ type RouterContext struct {
 
 	Router    *gin.Engine
 	AppConfig *config.AppConfig
-
-	LogMiddleware *middlewares.LogMiddleware
 
 	APIController *controllers.APIController
 	UserController *controllers.UserController
