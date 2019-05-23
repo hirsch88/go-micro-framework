@@ -29,8 +29,5 @@ import:
   version: ^1.10.0
 - package: github.com/vektra/mockery
 - package: github.com/wantedly/gorm-zap
-- package: golang.org/x/time
-  subpackages:
-  - rate
 - package: github.com/cnjack/throttle
 - package: github.com/aviddiviner/gin-limit
